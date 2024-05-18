@@ -5,9 +5,9 @@ import { Button } from "./button";
 
 
 
-const UploadDoc = () => {
+const UploadDoc = ({ onUploadComplete} : any) => {
     const [file, setFile] = useState(null);
-    const [selectedPosition, setSelectedPosition] = useState('');
+    const [selectedPosition, setSelectedPosition] = useState("Marketing Manager");
     const [uploading, setUploading] = useState(false);
 
     const handleFileChange = (e: any) => {
@@ -32,6 +32,7 @@ const UploadDoc = () => {
             })
             const data = await response.json();
             console.log(data);
+            console.log(selectedPosition);
         } catch (error) {
             console.log(error);
         }
@@ -42,13 +43,14 @@ const UploadDoc = () => {
                 fileInput.value = '';
             }
             setUploading(false);
+            onUploadComplete();
         }
     }
 
     return (
     <>
         <h1>
-            Upload Files to S3 Bucket
+            Header
         </h1>
         <form className="max-w-sm mx-auto" onSubmit={handleSubmit}>
             <label htmlFor="position" className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Select your position</label>

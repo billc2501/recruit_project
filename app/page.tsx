@@ -1,22 +1,54 @@
-import UploadDoc from "@/components/ui/UploadDoc";
+'use client'
 
-async function getApplications(){
-  const res = await fetch(`${process.env.BASE_URL}/api/application`, { cache: 'no-store' })
-  if (!res.ok){
-    throw new Error(`HTTP error! status: ${res.status} to ${process.env.BASE_URL}/api/getApplications`);
+import React, { useEffect, useState } from 'react';
+import UploadDoc from '@/components/ui/UploadDoc';
+import ApplicationsTable from '@/components/ui/ApplicationsTable';
+import { Candidate } from '@prisma/client';
+
+async function getApplications() {
+  const res = await fetch(`api/application`, { cache: 'no-store' });
+  if (!res.ok) {
+    throw new Error(`HTTP error! status: ${res.status}`);
   }
-  console.log("supp", res.ok);
   const responseData = await res.json();
-  console.log("add", responseData);
+  console.log(responseData);
   return responseData.data;
 }
 
-export default async function Home() {
-  const data: {id: number; position: string, status: string, candidate_id: number}[] = await getApplications();
+const Home: React.FC = () => {
+  const [applications, setApplications] = useState<{Candidate: Candidate, id: number; position: string; status: string}[]>([]);
+  const [loading, setLoading] = useState(true);
+
+  const fetchData = async () => {
+    try {
+      const data = await getApplications();
+      setApplications(data);
+    } catch (error) {
+      console.error(error);
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  const handleUploadComplete = () => {
+    setLoading(true);
+    fetchData();
+  };
+
+  useEffect(() => {
+    fetchData();
+  }, []);
+
+  if (loading) {
+    return <div>Loading...</div>;
+  }
   return (
     <div>
-      <UploadDoc/>
+      <UploadDoc onUploadComplete={handleUploadComplete} />
+      <ApplicationsTable data={applications} />
       <span>footer</span>
     </div>
   );
-}
+};
+
+export default Home;
