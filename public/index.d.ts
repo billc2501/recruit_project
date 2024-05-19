@@ -1,7 +1,6 @@
 
   declare interface HeaderBoxProps {
     name: string;
-    status: string;
     instructions: string;
   }
 

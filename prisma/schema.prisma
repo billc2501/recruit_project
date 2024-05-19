@@ -13,7 +13,7 @@ model Application {
   status      String
   candidate_id Int
   Candidate   Candidate @relation(fields: [candidate_id], references: [id])
-  invite      String?
+  invite      String? @unique
 }
 
 model Candidate {

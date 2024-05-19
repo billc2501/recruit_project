@@ -3,7 +3,6 @@ import prisma from '../../../prisma/client'
 import { NextRequest, NextResponse } from "next/server";
 import {v2 as cloudinary} from "cloudinary"
 import OpenAI from "openai";
-import { Candidate } from "@prisma/client";
 
 const openai = new OpenAI({ apiKey: process.env.OPENAI_API_KEY as string});
 

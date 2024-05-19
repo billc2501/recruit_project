@@ -16,7 +16,7 @@ async function getApplications() {
 }
 
 const Home: React.FC = () => {
-  const [applications, setApplications] = useState<{Candidate: Candidate, id: number; position: string; status: string}[]>([]);
+  const [applications, setApplications] = useState<{Candidate: Candidate, id: number; position: string; status: string, invite: string}[]>([]);
   const [loading, setLoading] = useState(true);
 
   const fetchData = async () => {

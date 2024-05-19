@@ -8,6 +8,7 @@ type Application = {
   position: string;
   status: string;
   Candidate: Candidate;
+  invite: string;
 };
 
 interface ApplicationsTableProps {
@@ -33,6 +34,9 @@ const ApplicationsTable: React.FC<ApplicationsTableProps> = ({ data }) => {
             <th scope="col" className="px-6 py-3">
               Position
             </th>
+            <th scope="col" className="px-6 py-3">
+              Email
+            </th>
           </tr>
         </thead>
         <tbody>
@@ -40,7 +44,13 @@ const ApplicationsTable: React.FC<ApplicationsTableProps> = ({ data }) => {
             <tr key={index} className={`${index % 2 === 0 ? 'even:bg-gray-50 even:dark:bg-gray-800' : 'odd:bg-white odd:dark:bg-gray-900'} border-b dark:border-gray-700`}>
               <td>
                 {application.Candidate && (
-                   <CandidateModal name={application.Candidate.name}/>
+                   <CandidateModal 
+                    name={application.Candidate.name}
+                    recipient_email={application.Candidate.email}
+                    position={application.position}
+                    applicationId={application.id}
+                    invite={application.invite}
+                   />
                 )}
               </td>
               <td className="px-6 py-4">
@@ -57,6 +67,9 @@ const ApplicationsTable: React.FC<ApplicationsTableProps> = ({ data }) => {
               </td>
               <td className="px-6 py-4">
                 {application.position}
+              </td>
+              <td className="px-6 py-4">
+                {application.Candidate.email}
               </td>
             </tr>
           ))}

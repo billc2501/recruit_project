@@ -12,6 +12,7 @@
     "@aws-sdk/client-s3": "^3.577.0",
     "@prisma/client": "^5.14.0",
     "@radix-ui/react-slot": "^1.0.2",
+    "@sendgrid/mail": "^8.1.3",
     "class-variance-authority": "^0.7.0",
     "cloudinary": "^2.2.0",
     "clsx": "^2.1.1",
@@ -23,6 +24,8 @@
     "react": "^18",
     "react-bootstrap": "^2.10.2",
     "react-dom": "^18",
+    "retell-client-js-sdk": "^1.3.3",
+    "retell-sdk": "^3.14.0",
     "tailwind-merge": "^2.3.0",
     "tailwindcss-animate": "^1.0.7"
   },
