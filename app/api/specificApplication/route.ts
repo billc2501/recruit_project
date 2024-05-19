@@ -17,7 +17,7 @@ export async function GET(req: NextRequest) {
                 Candidate: true
             }
         })
-        return NextResponse.json({status: 200, relevantCandidate})
+        return NextResponse.json({relevantCandidate, status: 200})
     }
     catch (error) {
         console.log(error);

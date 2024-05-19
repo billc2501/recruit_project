@@ -3,7 +3,6 @@
 import React, { useEffect, useState } from 'react';
 import HeaderBox from '../../../components/HeaderBox';
 import ConversationBox from '@/components/ui/ConversationBox';
-import { useRouter } from 'next/navigation';
 
 interface HomeProps {
   params: {
@@ -15,9 +14,7 @@ const Home: React.FC<HomeProps> = ({ params }) => {
   const [candidateName, setCandidateName] = useState("");
   const [isLoading, setIsLoading] = useState(true);
   const [status, setStatus] = useState("");
-
-
-  const router = useRouter();
+  const [position, setPosition] = useState("");
 
   const handleComplete = () => {
     console.log(status);
@@ -34,6 +31,7 @@ const Home: React.FC<HomeProps> = ({ params }) => {
             // Assuming your data contains the logged-in user's information
             setCandidateName(data.relevantCandidate.Candidate.name);
             setStatus(data.relevantCandidate.status);
+            setPosition(data.relevantCandidate.position);
             setIsLoading(false);
         } else {
             throw new Error('Failed to fetch data');
@@ -60,7 +58,7 @@ const Home: React.FC<HomeProps> = ({ params }) => {
         <header>
           <HeaderBox 
             name={candidateName}
-            instructions="Complete your thing"
+            instructions={"Talk about your experience in regards to the position of " + position}
           />
         </header>
         <ConversationBox 

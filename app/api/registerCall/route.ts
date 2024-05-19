@@ -19,6 +19,6 @@ export async function GET(req: NextRequest) {
     }
     catch (error) {
         console.log(error);
-        return NextResponse.json({status: 500})
+        return NextResponse.json(error, {status: 500})
     }
 }

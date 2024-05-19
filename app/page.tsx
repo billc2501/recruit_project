@@ -11,7 +11,6 @@ async function getApplications() {
     throw new Error(`HTTP error! status: ${res.status}`);
   }
   const responseData = await res.json();
-  console.log(responseData);
   return responseData.data;
 }
 
@@ -31,7 +30,6 @@ const Home: React.FC = () => {
   };
 
   const handleUploadComplete = () => {
-    setLoading(true);
     fetchData();
   };
 
@@ -46,7 +44,6 @@ const Home: React.FC = () => {
     <div>
       <UploadDoc onUploadComplete={handleUploadComplete} />
       <ApplicationsTable data={applications} />
-      <span>footer</span>
     </div>
   );
 };

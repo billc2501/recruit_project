@@ -6,7 +6,7 @@ const HeaderBox = ({ name, instructions}: HeaderBoxProps) => {
         <h1>
             <div className='text-center'>
                 <span className="text-[#0179FE]">
-                    Please start assessment, <strong>{name}</strong>
+                    Please start your assessment, <strong>{name}</strong>
                 </span> 
                 <p>
                     {instructions}

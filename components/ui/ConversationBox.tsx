@@ -36,10 +36,9 @@ const ConversationBox = ({invite, onComplete} : {invite: string, onComplete: any
     }
 
     return (
-        <div className='text-center'>
-            <Button onClick={handleStart} disabled={startClick}>Start</Button>
-            {invite} 
-            <Button onClick={handleStop}>Stop</Button>
+        <div className='text-center mb-4'>
+            <Button onClick={handleStart} disabled={startClick} className="mr-2 bg-green-600">Start</Button>
+            <Button onClick={handleStop} className="bg-red-500">Stop</Button>
         </div>
     )}
 

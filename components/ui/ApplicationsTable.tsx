@@ -50,6 +50,7 @@ const ApplicationsTable: React.FC<ApplicationsTableProps> = ({ data }) => {
                     position={application.position}
                     applicationId={application.id}
                     invite={application.invite}
+                    summary={application.Candidate.summary || "N/A"}
                    />
                 )}
               </td>

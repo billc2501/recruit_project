@@ -2,7 +2,7 @@
 
 import React from "react";
 
-export default function CandidateModal({name, recipient_email, position, applicationId, invite} : {name: string, recipient_email: string, position: string, applicationId: number, invite: string}) {
+export default function CandidateModal({name, recipient_email, position, applicationId, invite, summary} : {name: string, recipient_email: string, position: string, applicationId: number, invite: string, summary: string}) {
   const [showModal, setShowModal] = React.useState(false);
 
   const handleOnClick = async () => {
@@ -42,8 +42,9 @@ export default function CandidateModal({name, recipient_email, position, applica
               <div className="border-0 rounded-lg shadow-lg relative flex flex-col w-full bg-white outline-none focus:outline-none">
                 {/*header*/}
                 <div className="flex items-start justify-between p-5 border-b border-solid border-blueGray-200 rounded-t">
-                  <h3 className="text-3xl font-semibold">
-                  </h3>
+                  <p className="text-lg font-semibold">
+                    {summary}
+                  </p>
                   <button
                     className="p-1 ml-auto bg-transparent border-0 text-black opacity-5 float-right text-3xl leading-none font-semibold outline-none focus:outline-none"
                     onClick={() => setShowModal(false)}
@@ -103,7 +104,7 @@ export default function CandidateModal({name, recipient_email, position, applica
                 {/*body*/}
                 <div className="relative p-6 flex-auto">
                   <p className="my-4 text-blueGray-500 text-lg leading-relaxed">
-                    No available action needed at the moment, invite link sent.
+                    No action needed at the moment, invite link sent.
                   </p>
                 </div>
                 {/*footer*/}

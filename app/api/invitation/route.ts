@@ -8,7 +8,6 @@ export async function POST(req: NextRequest) {
         console.log(data);
         const link =  process.env.BASE_URL + "/invite/" + data.url_path
         sgMail.setApiKey(process.env.SENDGRID_API_KEY as string);
-        console.log("sdfds", data.recipient_email);
         const msg = {
             to: data.recipient_email, // Change to your recipient
             from: process.env.SENDER_EMAIL as string, // Change to your verified sender
@@ -17,7 +16,6 @@ export async function POST(req: NextRequest) {
         }
         
         const res =  await sgMail.send(msg)
-        console.log('hiey', res)
         
         const application = await prisma.application.update({
             where: { id: data.id },
@@ -28,7 +26,7 @@ export async function POST(req: NextRequest) {
         });        
         console.log(application);
         
-        return NextResponse.json({good: "good"});
+        return NextResponse.json(res, {status: 200});
     }
     catch (error) {
         console.log(error)

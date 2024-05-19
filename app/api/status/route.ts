@@ -1,6 +1,5 @@
 import { NextRequest, NextResponse } from "next/server";
 import prisma from "@/prisma/client";
-import * as sgMail from '@sendgrid/mail';
 
 export async function POST(req: NextRequest) {
     try {
@@ -12,7 +11,7 @@ export async function POST(req: NextRequest) {
             }
         });
         
-        return NextResponse.json({application: application});
+        return NextResponse.json(application, {status: 200});
     }
     catch (error) {
         console.log(error)

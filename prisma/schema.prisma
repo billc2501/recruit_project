@@ -21,5 +21,6 @@ model Candidate {
   name        String
   link        String?
   email       String        @unique
+  summary     String?
   Application Application[]
 }

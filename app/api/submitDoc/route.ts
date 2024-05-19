@@ -76,14 +76,14 @@ export async function POST(req: NextRequest) {
                 role: "system",
                 content: "You are a helpful assistant designed to output JSON.",
                 },
-                { role: "user", content: `Having information of '${resumeText}', what is the name and email of this individual?` },
+                { role: "user", content: `Having information of '${resumeText}', what is the name and email and summary of this individual?` },
             ],
             model: "gpt-3.5-turbo-0125",
             response_format: { type: "json_object" },
         });
         const content = JSON.parse(completion.choices[0].message.content as string);
         if (!content.name || !content.email){
-            return NextResponse.json({error: "Missing fields"})
+            return NextResponse.json({error: "Missing fields"}, {status: 422})
         }
         //Retrieve candidate with same email
         const existingCandidate = await prisma.candidate.findUnique({
@@ -97,7 +97,8 @@ export async function POST(req: NextRequest) {
             candidate = await prisma.candidate.update({
                 where: { email: content.email },
                 data: {
-                  link: fileURL
+                  link: fileURL,
+                  summary: content.summary
                 }
             });
         }
@@ -107,6 +108,7 @@ export async function POST(req: NextRequest) {
                     name: content.name,
                     link: fileURL,
                     email: content.email,
+                    summary: content.summary
                 }
             });
         }
@@ -124,9 +126,10 @@ export async function POST(req: NextRequest) {
                 }
             }
         })
+        console.log(relevantCandidate?.Application, relevantCandidate?.Application?.length)
         if (relevantCandidate?.Application && relevantCandidate?.Application?.length > 0){
             console.log(relevantCandidate?.Application, "already present")
-            return NextResponse.json(fileURL, {status: 201})
+            return NextResponse.json({ error: "Application already exists" }, { status: 400 });
         }
         else{
             await prisma.application.create({
@@ -140,6 +143,7 @@ export async function POST(req: NextRequest) {
         return NextResponse.json(fileURL, {status: 200})
     }
     catch (error) {
+        console.log("error", error)
         return NextResponse.json(error, {status: 500})
     }
 }
